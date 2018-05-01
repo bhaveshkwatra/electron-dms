@@ -1,6 +1,6 @@
 {
   "name": "electron-demo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Electron-DMS-Demo",
   "main": "main.js",
   "scripts": {
@@ -21,8 +21,8 @@
     "electron-updater": "^2.21.8"
   },
   "devDependencies": {
-  "electron": "^1.8.4",
-	"electron-builder": "^20.10.0"
+    "electron": "^1.8.4",
+    "electron-builder": "^20.10.0"
   },
   "build": {
     "appId": "com.test.electron",

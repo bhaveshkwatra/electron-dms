@@ -35,6 +35,8 @@
 
 </head>
 <body id="body">
+        Current version: <span id="version">vX.Y.Z</span>
+        <div id="messages"></div>
 <header>
 
     <nav class="navbar navbar-expand-lg" style="background-color:rgb(178, 203, 250);">
@@ -235,7 +237,16 @@
     
 </script>
 <script>
-
+// let version = window.location.hash.substring(1);
+// document.getElementById('version').innerText = version;
+// Listen for messages
+const {ipcRenderer} = require('electron');
+ipcRenderer.on('message', function(event, text) {
+  var container = document.getElementById('messages');
+  var message = document.createElement('div');
+  message.innerHTML = text;
+  container.appendChild(message);
+})
 </script>
 
 </html>
