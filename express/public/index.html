@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-model="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-model.trim="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css" rel="stylesheet">
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    
+    <script>
+
+    </script>
+    <style>
+
+        #tablerow:hover {
+            background: #ccc9c9;
+        }
+    </style>
+
+</head>
+<body id="body">
+<header>
+
+    <nav class="navbar navbar-expand-lg" style="background-color:rgb(178, 203, 250);">
+        <a class="navbar-brand">
+            <img src="Erste.jpg" style="width:100px;height:80px;">
+        </a>
+    </nav>
+</header>
+
+<div class="main" style="margin-top: 10px;">
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+
+            <div class="col-sm-3" style=" overflow:scroll;height: 90vh;min-height: 90vh">
+
+                <ul style="list-style: none">
+
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team DMSAT188</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team Newteam</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team SAURABH-TEAM</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team T198</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM 123xyz</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM CHECK1</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM DMS</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM-2</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM-333</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM-4M</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Team TEAM1</li>
+                    <li><i class="fa fa-folder fa-1x" aria-hidden="true"></i>Institutsablage</li>
+
+                    <li><i class="fa fa-laptop fa-1x" aria-hidden="true"></i><a href="javascript:getDrives()"> Computer</a></li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="col-sm-9" style=" overflow:scroll;height: 90vh;min-height: 90vh">
+                <!--Table-->
+                <table class="table table-bordered" >
+
+                    <!--Table head-->
+                    <thead class="blue-grey" style="color: #fff;">
+                    <tr>
+                        <th style="width: 35px;">#</th>
+                        <th>File Name</th>
+                        <th>Type</th>
+                        <th>Date modified</th>
+                        <th>Size in KB</th>
+                    </tr>
+                    </thead>
+                    <!--Table head-->
+
+                    <!--Table body-->
+                    <tbody id="tbody">
+                        <tr>
+
+                    </tbody>
+                    <!--Table body-->
+
+                </table>
+                <!--Table-->
+            </div>
+
+        </div>
+
+    </div><!--end container-->
+
+</div>
+</body>
+
+<script>
+
+    function getDrives() {
+        new Promise((resolve)=>{
+            axios.get('/drive').then(function (data) {
+                resolve(data.data)
+            })
+
+        }).then((data)=>{
+            var tr='';
+            var isDrive = data.isDrive
+            $('#tbody').empty();
+            if(isDrive){
+                data.data.forEach((data)=>{
+                    tr= tr+`<tr id="tablerow">
+                        <td id="${data.path}" scope="row"><i class="fa fa-hdd-o fa-1x" aria-hidden="true"></i></td>
+                        <td id="${data.path}">${data.path}</td>
+                        <td id="${data.path}">Drive</td>
+                        <td id="${data.path}"></td>
+                        <td id="${data.path}"></td>
+                    </tr>`;
+                })
+            }
+            $('#tbody').append(tr);
+            $('tr').dblclick((e)=>{
+                getDrivesList(e.target.id)
+            })
+        }).catch(reason => {
+            console.log(reason)
+        })
+    }
+
+    function getDrivesList(path) {
+        new Promise((resolve)=>{
+            axios.get('/drive?path='+path).then(function (data) {
+                resolve(data.data)
+            })
+
+        }).then((data)=>{
+
+            var tr='';
+            var isDrive = data.isDrive
+            if(isDrive==undefined)
+            {
+                $('#tbody').html(data)
+            }
+            else if(!isDrive){
+                $('#tbody').empty();
+                data.folders.forEach((folder)=>{
+                    tr= tr+`<tr id="tablerow">
+                        <td id="${path+folder.name}\\" scope="row"><img style="width: 32px;" src="http://pngimg.com/uploads/folder/folder_PNG8751.png"></td>
+                        <td id="${path+folder.name}\\">${folder.name}</td>
+                        <td id="${path+folder.name}\\">${folder.ext}</td>
+                        <td id="${path+folder.name}\\">${folder.mtime}</td>
+                        <td id="${path+folder.name}\\">${folder.size}</td>
+                    </tr>`;
+                })
+                data.files.forEach((file)=>{
+                    tr= tr+`<tr id="tablerow2">
+                        <td class="file" id="${path+file.name}" scope="row"><img style="width: 32px;" src="http://png-1.findicons.com/files/icons/2420/coded/512/page_blank.png"></td>
+                        <td class="file" id="${path+file.name}">${file.name}</td>
+                        <td class="file" id="${path+file.name}">${file.ext}</td>
+                        <td class="file" id="${path+file.name}">${file.mtime}</td>
+                        <td class="file" id="${path+file.name}">${file.size}</td>
+                    </tr>`;
+                })
+
+            }
+            $('#tbody').append(tr);
+            $('tr').dblclick((e)=>{
+                if(e.target.className===''){
+                    getDrivesList(e.target.id)
+                }
+                else{
+                    window.location='/download?path='+e.target.id;
+                    getDrivesList(path)
+                }
+            })
+        }).catch(reason => {
+            console.log(reason)
+        })
+    }
+</script>
+<script type = "text/javascript">
+    const {remote,shell,ipcRenderer} = require('electron')
+    const {Menu, MenuItem} = remote
+
+     const menu = new Menu();
+     ipcRenderer.on('message', function(event, text) {
+		console.log(text);
+    })
+        var data;
+     // Build menu one item at a time, unlike
+     menu.append(new MenuItem ({
+        label: 'Show',
+        click(menuItem, browserWindow, event) { 
+            openFile(data);
+        }
+     }))
+     menu.append(new MenuItem ({
+        label: 'Print',
+        click() {
+        }
+     }))
+
+     menu.append(new MenuItem ({
+        label: 'Import',
+        click() {
+           result = data.split('\\');
+            window.alert(result[1] +" has been import");
+        }
+     }))
+
+    $('table tbody').on("contextmenu", function(e) {
+             if(e.target.classList.contains('file')) {
+                data = e.target.id
+                console.log(data);
+                menu.popup(remote.getCurrentWindow());
+             }
+    })
+    function openFile(path) {
+    shell.openItem(path);
+}
+    
+</script>
+<script>
+
+</script>
+
+</html>
