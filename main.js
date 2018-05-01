@@ -36,7 +36,7 @@ let win = null;
     win = new BrowserWindow({width: 2000, height: 1100})
     win.loadURL('http://localhost:8004/');
     win.focus();
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 }
 
 function sendStatusToWindow(text) {
@@ -64,8 +64,18 @@ autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Update available.');
 })
 autoUpdater.on('update-not-available', (info) => {
-  Window.alert("No Latest Upadate Available")
+  dialog.showMessageBox({
+    type:'info',
+    detail:'No Latest Upadate Available',
+    buttons:['OK']
+  });
+  sendStatusToWindow("No Latest Upadate Available")
+
 })
+autoUpdater.on('error', (err) => {
+  sendStatusToWindow('Error in auto-updater. ' + err);
+})
+
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
 })
