@@ -31,26 +31,21 @@
         #tablerow:hover {
             background: #ccc9c9;
         }
-
-        #messages{
-            background-color: darkblue;
-        }
     </style>
 
 </head>
 <body id="body">
-        Current version: <span id="version">vX.Y.Z</span>
-        <div id="messages"></div>
-<!-- <header>
+   
+<header>
 
     <nav class="navbar navbar-expand-lg" style="background-color:rgb(178, 203, 250);">
         <a class="navbar-brand">
             <img src="Erste.jpg" style="width:100px;height:80px;">
         </a>
     </nav>
-</header> -->
+</header>
 
-<!-- <div class="main" style="margin-top: 10px;">
+ <div class="main" style="margin-top: 10px;">
 
     <div class="container-fluid">
 
@@ -83,10 +78,10 @@
 
             <div class="col-sm-9" style=" overflow:scroll;height: 90vh;min-height: 90vh">
                 <!--Table-->
-                <!-- <table class="table table-bordered" >
+                <table class="table table-bordered" >
 
                     <!--Table head-->
-                    <!-- <thead class="blue-grey" style="color: #fff;">
+                    <thead class="blue-grey" style="color: #fff;">
                     <tr>
                         <th style="width: 35px;">#</th>
                         <th>File Name</th>
@@ -94,28 +89,28 @@
                         <th>Date modified</th>
                         <th>Size in KB</th>
                     </tr>
-                    </thead> -->
+                    </thead> 
                     <!--Table head-->
 
                     <!--Table body-->
-                    <!-- <tbody id="tbody">
+                    <tbody id="tbody">
                         <tr>
 
-                    </tbody> -->
+                    </tbody> 
                     <!--Table body-->
 
-                <!-- </table>
+                 </table>
                 <!--Table-->
-            <!-- </div> -->
+            </div> 
 
-        <!-- </div> -->
+        </div>
 
-    <!-- </div> -->
+    </div>
 
-<!-- </div>  -->
+</div> 
 </body>
 
-<!-- <script>
+ <script>
 
     function getDrives() {
         new Promise((resolve)=>{
@@ -197,8 +192,8 @@
             console.log(reason)
         })
     }
-</script> -->
-<!-- <script type = "text/javascript">
+</script>
+<script type = "text/javascript">
     const {remote,shell,ipcRenderer} = require('electron')
     const {Menu, MenuItem} = remote
 
@@ -238,19 +233,22 @@
     function openFile(path) {
     shell.openItem(path);
 }
+
+ipcRenderer.on('message', function(event, text) {
+console.log(text);
+})
     
-</script> -->
+</script> 
 <script>
 // let version = window.location.hash.substring(1);
 // document.getElementById('version').innerText = version;
 // Listen for messages
-const {ipcRenderer} = require('electron');
-ipcRenderer.on('message', function(event, text) {
-  var container = document.getElementById('messages');
-  var message = document.createElement('div');
-  message.innerHTML = text;
-  container.appendChild(message);
-})
+//ipcRenderer.on('message', function(event, text) {
+  //var container = document.getElementById('messages');
+  //var message = document.createElement('div');
+  //message.innerHTML = text;
+  //container.appendChild(message);
+//})
 </script>
 
 </html>

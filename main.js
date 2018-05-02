@@ -36,7 +36,7 @@ let win = null;
     win = new BrowserWindow({width: 2000, height: 1100})
     win.loadURL('http://localhost:8004/');
     win.focus();
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 }
 
 function sendStatusToWindow(text) {
@@ -58,7 +58,7 @@ autoUpdater.on('update-available', (info) => {
     detail: message
   }, response => {
     if (response === 0) {
-      setTimeout(() => autoUpdater.quitAndInstall(), 1);
+      setTimeout(() => app.quit(), 1);
     }
   });
   sendStatusToWindow('Update available.');
