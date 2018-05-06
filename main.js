@@ -52,13 +52,16 @@ autoUpdater.on('update-available', (info) => {
   let message = app.getName() +  ' is now available. It will be installed the next time you restart the application.';
     dialog.showMessageBox({
     type: 'question',
-    buttons: ['Install and Relaunch', 'Later'],
+    buttons: ['Install and Relaunch'],
     defaultId: 0,
     message: 'A new version of ' + app.getName() + ' has been downloaded',
     detail: message
   }, response => {
     if (response === 0) {
-      setTimeout(() => app.quit(), 1);
+      dialog.showMessageBox({
+        type:'info',
+        detail:'Please wait New Version of this application is in Progress'
+      })
     }
   });
   sendStatusToWindow('Update available.');
@@ -69,8 +72,6 @@ autoUpdater.on('update-not-available', (info) => {
     detail:'No Latest Upadate Available',
     buttons:['OK']
   });
-  sendStatusToWindow("No Latest Upadate Available")
-
 })
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
@@ -79,7 +80,11 @@ autoUpdater.on('error', (err) => {
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
 })
-
+autoUpdater.on('download-progress', (progressObj) => {
+})
+autoUpdater.on('update-downloaded', (info) => {
+  autoUpdater.quitAndInstall();  
+})
 app.on('ready', () => {
 	const menu = Menu.buildFromTemplate(template);
 	Menu.setApplicationMenu(menu);
