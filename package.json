@@ -1,6 +1,6 @@
 {
   "name": "electron-demo",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Electron-DMS-Demo",
   "main": "main.js",
   "scripts": {
