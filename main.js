@@ -11,7 +11,7 @@ let win = null;
 
 	if (process.platform === 'win32') {
 	  // OS X
-	  const name = app.getName();
+	  const name = 'Help'
 	  template.unshift({
 		label: name,
 		submenu: [
@@ -22,9 +22,7 @@ let win = null;
 			}
 		  },
 		  {
-			label: 'Quit',
-			accelerator: 'Command+Q',
-			click() { app.quit(); }
+			label: 'Version: '+app.getVersion()
 		  },
 		]
 	  })
@@ -54,13 +52,13 @@ autoUpdater.on('update-available', (info) => {
     type: 'question',
     buttons: ['Install and Relaunch'],
     defaultId: 0,
-    message: 'A new version of ' + app.getName() + ' has been downloaded',
+    message: 'New update should have Start OCR in right click of context menu',
     detail: message
   }, response => {
     if (response === 0) {
       dialog.showMessageBox({
         type:'info',
-        detail:'Please wait New Version of this application is in Progress'
+        detail:'Please wait update is in progess'
       })
     }
   });
@@ -69,7 +67,7 @@ autoUpdater.on('update-available', (info) => {
 autoUpdater.on('update-not-available', (info) => {
   dialog.showMessageBox({
     type:'info',
-    detail:'No Latest Upadate Available',
+    detail:'No new update available',
     buttons:['OK']
   });
 })
