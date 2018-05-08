@@ -47,17 +47,16 @@ autoUpdater.on('checking-for-update', () => {
 })
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Update downloaded');
-  let message = app.getName() +  ' is now available. It will be installed the next time you restart the application.';
+  let message = 'DMS 2.0 new update is now available. It will be installed the next time you restart the application.';
     dialog.showMessageBox({
     type: 'question',
     buttons: ['Install and Relaunch'],
     defaultId: 0,
-    message: 'New update should have Start OCR in right click of context menu',
     detail: message
   }, response => {
     if (response === 0) {
-      dialog.showMessageBox({
-        type:'info',
+      dialog.showErrorBox({
+        title :'DMS 2.0',
         detail:'Please wait update is in progess'
       })
     }
