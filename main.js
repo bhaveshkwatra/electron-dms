@@ -71,6 +71,7 @@ autoUpdater.on('update-available', (info) => {
 autoUpdater.on('update-not-available', (info) => {
   dialog.showMessageBox({
     type:'info',
+    title:'DMS 2.0',
     detail:'No new update available',
     buttons:['OK']
   });
