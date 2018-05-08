@@ -82,10 +82,7 @@ autoUpdater.on('error', (err) => {
 autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
-  setTimeout(()=>{
     autoUpdater.quitAndInstall();
-  },5000);
-    
 })
 app.on('ready', () => {
 	const menu = Menu.buildFromTemplate(template);
