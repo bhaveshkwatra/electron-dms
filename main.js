@@ -48,12 +48,10 @@ let win = null;
 }
 
 function sendStatusToWindow(text) {
-  log.info(text);
   win.webContents.send('message', text);
 }
 
 autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
 })
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Update downloaded');
@@ -62,16 +60,13 @@ autoUpdater.on('update-available', (info) => {
     type: 'question',
     buttons: ['Install and Relaunch'],
     defaultId: 0,
+    title: 'DMS 2.0',
     detail: message
   }, response => {
     if (response === 0) {
-      dialog.showMessageBox({
-        type:'info',
-        detail:'Please wait update is in progess'
-      })
+      sendStatusToWindow("install");
     }
   });
-  sendStatusToWindow('Update available.');
 })
 autoUpdater.on('update-not-available', (info) => {
   dialog.showMessageBox({
@@ -81,16 +76,15 @@ autoUpdater.on('update-not-available', (info) => {
   });
 })
 autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
 })
 
-autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
-})
 autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
-  autoUpdater.quitAndInstall();  
+  setTimeout(()=>{
+    autoUpdater.quitAndInstall();
+  },5000);
+    
 })
 app.on('ready', () => {
 	const menu = Menu.buildFromTemplate(template);
