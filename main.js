@@ -52,9 +52,10 @@ function sendStatusToWindow(text) {
 }
 
 autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow("install");
 })
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update downloaded');
+  sendStatusToWindow("install");
   let message = 'DMS 2.0 new update is now available. It will be installed the next time you restart the application.';
     dialog.showMessageBox({
     type: 'question',
@@ -69,6 +70,7 @@ autoUpdater.on('update-available', (info) => {
   });
 })
 autoUpdater.on('update-not-available', (info) => {
+  sendStatusToWindow("install");
   dialog.showMessageBox({
     type:'info',
     title:'DMS 2.0',
@@ -82,6 +84,7 @@ autoUpdater.on('error', (err) => {
 autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
+    //sendStatusToWindow("install");
     autoUpdater.quitAndInstall();
 })
 app.on('ready', () => {

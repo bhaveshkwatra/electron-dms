@@ -362,7 +362,11 @@
 // Listen for messages
 ipcRenderer.on('message', function(event, text) {
   var container = document.getElementById('loading');
-  container.style.display = "block";
+  if(container.style.display === 'none') {
+    container.style.display = "block";
+  } else {
+    container.style.display = "none";
+  }
 })
 
     
