@@ -11,9 +11,18 @@ let win = null;
 
 	if (process.platform === 'win32') {
 	  // OS X
-	  const name = 'Help'
-	  template.unshift({
-		label: name,
+	  template.unshift(
+    {
+      label: 'File'
+    },
+    {
+      label : 'Edit'
+    },
+    {
+      label: 'View'
+    },
+    {
+		label: 'Help',
 		submenu: [
 		  {
 			label: 'Check For Update',
@@ -25,7 +34,8 @@ let win = null;
 			label: 'Version: '+app.getVersion()
 		  },
 		]
-	  })
+    }
+  )
 	}
 
   function createDefaultWindow () {
@@ -55,8 +65,8 @@ autoUpdater.on('update-available', (info) => {
     detail: message
   }, response => {
     if (response === 0) {
-      dialog.showErrorBox({
-        title :'DMS 2.0',
+      dialog.showMessageBox({
+        type:'info',
         detail:'Please wait update is in progess'
       })
     }
